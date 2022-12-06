@@ -11,21 +11,21 @@ public class Queue {
         }
     }
 
-    Node headNode, tailNode;
+    Node headNode, lastNode;
 
-    public boolean push(int value) {
+    public boolean deQueue(int value) {
         Node node = new Node(value);
-        if (headNode == null && tailNode == null) {
-            headNode = tailNode = node;
+        if (headNode == null && lastNode == null) {
+            headNode = lastNode = node;
         } else {
-            tailNode.next = node;
-            tailNode = node;
+            lastNode.next = node;
+            lastNode = node;
         }
         return false;
     }
 
-    public int pop() {
-        if (headNode == null && tailNode == null) {
+    public int enQueue() {
+        if (headNode == null && lastNode == null) {
             System.out.println("empty");
         }
         int value = headNode.value;
@@ -33,17 +33,17 @@ public class Queue {
         return value;
     }
 
-    public void show() {
-        if (headNode == null && tailNode == null) {
-            System.out.println("empty");
-            return;
-        } else {
-            Node temp = headNode;
-            while (temp != null) {
-                System.out.println(temp.value + " ");
-                temp = temp.next;
-            }
-        }
-    }
+//    public void show() {
+//        if (headNode == null && lastNode == null) {
+//            System.out.println("empty");
+//            return;
+//        } else {
+//            Node temp = headNode;
+//            while (temp != null) {
+//                System.out.println(temp.value + " ");
+//                temp = temp.next;
+//            }
+//        }
+//    }
 
 }
