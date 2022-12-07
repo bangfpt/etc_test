@@ -4,46 +4,61 @@ package test;
 public class Queue {
     private class Node {
         int value;
-        Node next;
-
+        Node pre;
         Node(int value) {
             this.value = value;
         }
     }
-
-    Node headNode, lastNode;
-
-    public boolean deQueue(int value) {
-        Node node = new Node(value);
-        if (headNode == null && lastNode == null) {
-            headNode = lastNode = node;
-        } else {
-            lastNode.next = node;
-            lastNode = node;
-        }
-        return false;
+    Node preNode, node;
+    Queue(){
+        preNode = null;
     }
 
-    public int enQueue() {
-        if (headNode == null && lastNode == null) {
+
+
+    public boolean enQueue(int value) {
+
+        node = new Node(value);
+        node.pre = preNode;
+        preNode = node;
+        return true;
+    }
+
+    void dequeue(Node e) {
+
+        if (e == null) {
+            e.value = Integer.parseInt(null);
+            return ;
+        }
+        if(e.pre.pre == null){
+            e.pre = null;
+            return ;
+        }
+        dequeue(e.pre);
+    }
+
+    public void show() {
+        if (preNode == null) {
             System.out.println("empty");
+            return;
+        } else {
+            Node temp = preNode;
+            while (temp != null) {
+                System.out.print(temp.value + " ");
+                temp = temp.pre;
+            }
         }
-        int value = headNode.value;
-        headNode = headNode.next;
-        return value;
     }
 
-//    public void show() {
-//        if (headNode == null && lastNode == null) {
-//            System.out.println("empty");
-//            return;
-//        } else {
-//            Node temp = headNode;
-//            while (temp != null) {
-//                System.out.println(temp.value + " ");
-//                temp = temp.next;
-//            }
-//        }
-//    }
-
+    public static void main(String[] args) {
+        Queue queue = new Queue();
+        for (int i = 0; i < 5; i++) {
+            queue.enQueue(i);
+        }
+        queue.show();
+        queue.dequeue(queue.preNode);
+        queue.show();
+    }
 }
+
+

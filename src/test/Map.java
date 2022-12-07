@@ -5,12 +5,13 @@ public  class Map<K, V> {
         K key;
         V value;
 
-        Node<K, V> previous;
+        Node<K, V> previous, next;
 
         public Node(K key, V value, Node node) {
             this.key = key;
             this.value = value;
             this.previous = node;
+            this.next = node;
         }
     }
 
@@ -32,14 +33,21 @@ public  class Map<K, V> {
         return null;
     }
 
-    Boolean remove(K key) {
-        for (Node e = node; node != null; e = node.previous) {
-            if (e.key == key) {
-                e = e.previous;
-                return true;
-            }
-            if (e.previous.key == key) {
-                e.previous = e.previous.previous;
+    Boolean remove(K key){
+        for(Node n = node ; n != null ; n = n.previous){
+            if(n.key.equals(key)){
+                if(n.previous == null){
+                    n = n.next;
+                    n.previous = null;
+
+                }else if(n.next == null){
+                    node = node.previous;
+                    node.next=null;
+                    System.out.println(n.next);
+                }else{
+                    n.previous.next = n.next;
+                    n.next.previous = n.previous;
+                }
                 return true;
             }
 
